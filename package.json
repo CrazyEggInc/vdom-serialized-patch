@@ -29,7 +29,7 @@
     "mocha": "^2.3.3",
     "phantomjs": "^1.9.18",
     "vdom-to-html": "^2.1.1",
-    "virtual-dom": "^2.1.1",
+    "virtual-dom": "CrazyEggInc/virtual-dom",
     "zuul": "^3.7.2"
   },
   "browser": {
