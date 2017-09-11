@@ -49,8 +49,8 @@ var structures = [
   h('h1', 'hello!'),
   h('a', {href: 'https://npm.im/hyperscript'}, 'hyperscript'),
   h('h1.fun', {style: {'font-family': 'Comic Sans MS'}}, 'Happy Birthday!'),
-  h('input', {type: 'number'}, 1),
-  h('input', {type: 'number', value: 1}),
+  h('input', {type: 'number'}, '1'),
+  h('input', {type: 'number', value: '1'}),
   h('input', {type: 'number'}),
   h('div', {attributes: {
     'data-something': 1,
