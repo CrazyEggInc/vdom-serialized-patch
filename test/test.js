@@ -91,7 +91,50 @@ var structures = [
   new Thunk("thunktest")
 ];
 
-describe('test suite', function () {
+
+describe('serializing patch', function () {
+  it('should construct paths to all nodes affected by diff', function() {
+      var div1 = h("div", [ // 0
+          h("span", "text"), // 1, 2 (element & text node)
+          h("div.widgetContainer", [ // 3
+              h("div", [ // 4
+                  h("span", "text"), // 5, 6
+                  h("div.widgetContainer", []), // 7
+                  h("p", "more text") // 8, 9
+              ]),
+          ]),
+          h("p", "more text") // 10, 11
+      ]);
+      var div2 = h("div.someDiv", [
+          h("span", "text123"),
+          h("div.widgetContainer123", [
+              h("div.anotherDiv", [
+                  h("span", "text123"),
+                  h("div", []),
+                  h("p", "")
+              ]),
+          ]),
+          h("p.someP", "txt")
+      ]);
+      var expectedPaths = {
+          0: [0],
+          2: [0, 0, 0],
+          3: [0, 1],
+          4: [0, 1, 0],
+          6: [0, 1, 0, 0, 0],
+          7: [0, 1, 0, 1],
+          9: [0, 1, 0, 2, 0],
+          10: [0, 2],
+          11: [0, 2, 0]
+      };
+
+      var patch = diff(div2, div1);
+      patch = serialize(patch);
+      patch.paths.should.deep.equal(expectedPaths);
+  });
+});
+
+describe('applying serialized patch', function () {
 
   function renderCount(count) {
     return h('div', {
@@ -175,3 +218,4 @@ describe('test suite', function () {
   });
 
 });
+
