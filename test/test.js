@@ -139,13 +139,16 @@ describe('test suite', function () {
 
   structures.forEach(function (structure1, i) {
 
-    function testAgainst(structure2) {
+    function testAgainst(structure2, withoutSerializedTree) {
       return function () {
         var nodeA = structure1;
         var nodeB = structure2;
 
         var patch1 = diff(nodeA, nodeB);
         var serializedPatch = serialize(patch1);
+
+        if (withoutSerializedTree)
+          delete serializedPatch.a;
 
         var parent = createTestElement(nodeA);
 
@@ -171,6 +174,7 @@ describe('test suite', function () {
       var testName = 'test diff: ' + i + 'vs' + j;
 
       it(testName, testAgainst(structure2));
+      it(testName + ' (without serialized \'a\')', testAgainst(structure2, true));
     }
   });
 
