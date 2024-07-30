@@ -10,8 +10,9 @@ var applyPatchOriginal = require('virtual-dom/patch');
 chai.should();
 
 if (!process.browser) {
-  var jsdom = require('jsdom').jsdom;
-  global.document = jsdom('<html><body></body></html>');
+  var { JSDOM } = require('jsdom');
+  var { window } = new JSDOM('<html><body></body></html>');
+  global.document = window.document;
 }
 
 function Thunk(str){
