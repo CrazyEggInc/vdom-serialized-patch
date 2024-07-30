@@ -19,7 +19,7 @@ Install
 ----
 
     npm install vdom-serialized-patch
-    
+
 
 Usage
 ---
